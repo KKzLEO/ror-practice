@@ -3,6 +3,7 @@ class Stock < ActiveRecord::Base
 
   require 'open-uri'
   require 'nokogiri'
+  require 'csv'
 
   def self.load_data
     puts Time.now
@@ -40,7 +41,7 @@ class Stock < ActiveRecord::Base
 
   def self.filter(arg)
     arg[:count] ||= Stock.count
-    arg[:date] ||= Date.today
+    arg[:date] ||= Date.today.to_s
     arg[:sortMethod] ||= "asc"
     arg[:sortField] ||= "company_id"
     condition = "DATE(created_at) = ? AND company_id = ?" unless arg[:id] == nil
@@ -49,5 +50,17 @@ class Stock < ActiveRecord::Base
     result = Stock.where(condition, Date.parse(arg[:date]), arg[:id])
                   .order("#{arg[:sortField]} #{arg[:sortMethod]}")
                   .first(arg[:count].to_i)
+  end
+
+  def self.to_csv(arg)
+    attributes = %w{id company_id company_name company_href opening_price max_price min_price yesterday_closing_price today_closing_price volume up_down_value percentage_up_down_value}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      filter(arg).each do |stock|
+        csv << attributes.map{ |attr| stock.send(attr) }
+      end
+    end
   end
 end
