@@ -39,15 +39,15 @@ class Stock < ActiveRecord::Base
   end
 
   def self.filter(arg)
-    # result = Stock.all if arg.count == nil
-    # result = Stock.first(arg.count) if arg.count != nil
-    # result = []
-    # if arg.count != nil
-    #   result = Stock.first(arg.count)
-    # else
-    #   result = Stock.all
-    # end
-    result = Stock.first(arg.count)
-    Stock.first(50)
+    arg[:count] ||= Stock.count
+    arg[:date] ||= Date.today
+    arg[:sortMethod] ||= "asc"
+    arg[:sortField] ||= "company_id"
+    condition = "DATE(created_at) = ? AND company_id = ?" unless arg[:id] == nil
+    condition = "DATE(created_at) = ? OR company_id = ?" if arg[:id] == nil
+
+    result = Stock.where(condition, Date.parse(arg[:date]), arg[:id])
+                  .order("#{arg[:sortField]} #{arg[:sortMethod]}")
+                  .first(arg[:count].to_i)
   end
 end
