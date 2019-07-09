@@ -10,10 +10,22 @@
     padding: 10,
 }
 
-.search_input{
-    margin-bottom: 25px;
+.company_name{
+    color: white;
+    background-color: #3f51b5;
+    text-decoration: none;
+    padding: 0px 10px;
+    border-radius: 10px;
 }
 
-.btn_search_container{
-    line-height: 45px;
+.company_name:hover{
+    background-color: #5264cc;
+}
+
+.table_head{
+    cursor: pointer;
+}
+
+.icon_order{
+    font-size:14px !important;
 }

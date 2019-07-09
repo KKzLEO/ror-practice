@@ -44,10 +44,10 @@ class Stock < ActiveRecord::Base
     arg[:date] ||= Date.today.to_s
     arg[:sortMethod] ||= "asc"
     arg[:sortField] ||= "company_id"
-    condition = "DATE(created_at) = ? AND company_id = ?" unless arg[:id] == nil
-    condition = "DATE(created_at) = ? OR company_id = ?" if arg[:id] == nil
+    condition = "DATE(created_at) = ? AND company_id = ?" unless arg[:companyId] == nil
+    condition = "DATE(created_at) = ? OR company_id = ?" if arg[:companyId] == nil
 
-    result = Stock.where(condition, Date.parse(arg[:date]), arg[:id])
+    result = Stock.where(condition, Date.parse(arg[:date]), arg[:companyId])
                   .order("#{arg[:sortField]} #{arg[:sortMethod]}")
                   .first(arg[:count].to_i)
   end
