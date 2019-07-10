@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import {
-    fetchStockData
+    fetchStockData,
+    exportStockData
 } from '../actions/stockActions';
 import Search from '../components/Search/Search'
 
 const mapStateToProps = (state) => {
     return{
-        parameters: state.stock.get("parameters"),
+        parameters: state.stock.get("parameters")
     }
 };
 
@@ -14,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchStockData:(parameters)=>{
             dispatch(fetchStockData(parameters));
+        },
+        exportStockData:(parameters)=>{
+            dispatch(exportStockData(parameters));
         }
     }
 };

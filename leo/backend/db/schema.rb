@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20190705025433) do
     t.string   "volume"
     t.float    "up_down_value"
     t.string   "percentage_up_down_value"
+    t.string   "status"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
   end

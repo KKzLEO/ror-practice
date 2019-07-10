@@ -4,8 +4,14 @@
 
 .btn_search_container{
     line-height: 45px;
+    float: right;
 }
 
 .btn_toolbar{
     margin-left:10px !important;
+}
+
+.download_link{
+    text-decoration: none;
+    color: inherit;
 }

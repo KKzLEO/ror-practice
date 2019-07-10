@@ -11,8 +11,7 @@ const initialState = Immutable.fromJS({
         sortMethod:"asc",
         sortField:"company_id",
         lastSortField:"company_id"
-    },
-    downloadLink: ""
+    }
 });
 
 export default function stockReducer(state = initialState, action){
@@ -23,6 +22,12 @@ export default function stockReducer(state = initialState, action){
             return state.set("stockData",action.payload.data)
                         .set("isLoading",false)
                         .set("parameters",action.payload.parameters);
+        case types.EXPORT_STOCK_DATA_REQUEST:
+            return state.set("isLoading",true);
+        case types.EXPORT_STOCK_DATA_SUCCESS:
+        case types.EXPORT_STOCK_DATA_FAILURE:
+        case types.FETCH_STOCK_DATA_FAILURE:
+            return state.set("isLoading",false);
         default:
             return state;
     }

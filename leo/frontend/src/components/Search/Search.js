@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, createElement } from 'react'
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -12,7 +12,7 @@ export default class Search extends Component {
         this.state = {
             parameters:{
                 companyId:"",
-                date:""
+                date: ""
             }
         }
     }
@@ -32,6 +32,13 @@ export default class Search extends Component {
         parameters.companyId = this.state.parameters.companyId;
         parameters.date = this.state.parameters.date;
         this.props.fetchStockData(parameters);
+    }
+
+    exportStockData(){
+        let parameters = Object.assign({},this.props.parameters);
+        parameters.companyId = this.state.parameters.companyId;
+        parameters.date = this.state.parameters.date;
+        this.props.exportStockData(parameters);
     }
 
     render() {
@@ -68,9 +75,9 @@ export default class Search extends Component {
                         <Button onClick={()=>this.handleSearch()} variant="contained" color="primary">
                             搜尋
                         </Button>
-                        {/* <Button onClick={()=>console.log(1)} variant="contained" className={styles.btn_toolbar} >
-                            <a href={this.state.downloadLink} download="file.txt">匯出</a>
-                        </Button> */}
+                        <Button onClick={()=>this.exportStockData()} variant="contained" className={styles.btn_toolbar} >
+                            匯出
+                        </Button>
                     </Grid>
                 </Grid>
             </Paper>

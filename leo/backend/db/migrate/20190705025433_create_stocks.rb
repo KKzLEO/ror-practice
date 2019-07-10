@@ -12,7 +12,7 @@ class CreateStocks < ActiveRecord::Migration
       t.string :volume
       t.float :up_down_value
       t.string :percentage_up_down_value
-
+      t.string :status
       t.timestamps
     end
   end

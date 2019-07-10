@@ -9,8 +9,14 @@ import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux';
 import TurnoverContainer from './containers/TurnoverContainer';
 import SearchContainer from './containers/SearchContainer';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+// let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+let store = createStore(rootReducer, composeWithDevTools(
+  applyMiddleware(thunkMiddleware),
+  // other store enhancers if any
+));
+
 
 function App() {
   return (
