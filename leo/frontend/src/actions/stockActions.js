@@ -1,11 +1,13 @@
 import { createAction } from 'redux-actions';
+import { addParametersToUrl } from '../utilities/urlTools';
 import {
     FETCH_STOCK_DATA_REQUEST,
     FETCH_STOCK_DATA_SUCCESS,
     FETCH_STOCK_DATA_FAILURE,
     EXPORT_STOCK_DATA_REQUEST,
     EXPORT_STOCK_DATA_SUCCESS,
-    EXPORT_STOCK_DATA_FAILURE
+    EXPORT_STOCK_DATA_FAILURE,
+    SET_QUERY_PARAMETERS_REQUEST
 } from '../constants/actionTypes';
 
 export const fetchStockDataRequest = createAction(FETCH_STOCK_DATA_REQUEST);
@@ -14,6 +16,14 @@ export const fetchStockDataFailure = createAction(FETCH_STOCK_DATA_FAILURE);
 export const exportStockDataRequest = createAction(EXPORT_STOCK_DATA_REQUEST);
 export const exportStockDataSuccess = createAction(EXPORT_STOCK_DATA_SUCCESS);
 export const exportStockDataFailure = createAction(EXPORT_STOCK_DATA_FAILURE);
+
+export const setQueryParametersRequest = createAction(SET_QUERY_PARAMETERS_REQUEST);
+
+export function setQueryParameters(parameters){
+    return (dispatch) => {
+        Promise(dispatch(setQueryParametersRequest(parameters)));
+    }
+}
 
 export function fetchStockData(parameters){
     return async (dispatch) => {
@@ -28,7 +38,7 @@ export function fetchStockData(parameters){
             dispatch(fetchStockDataSuccess({data : data, parameters: parameters}));
         }
         catch (error) {
-            dispatch(fetchStockDataFailure(error));
+            dispatch(fetchStockDataFailure());
         }
     }
 }
@@ -54,26 +64,6 @@ export function exportStockData(parameters){
             dispatch(exportStockDataFailure());
         }
     }
-}
-
-function addParametersToUrl(url, parameters){
-    Object.keys(parameters).reduce((accumulator, key) => {
-        if(parameters[key] !== null 
-            && parameters[key] !== undefined 
-            && parameters[key] !== ""){
-                accumulator.push({
-                    key: key,
-                    value: parameters[key]
-                });
-            }
-        return accumulator;
-    },[]).map(obj=>{
-        url += `${obj.key}=${obj.value}&`;
-        return obj;
-    });
-
-    url = url.slice(0, -1);
-    return url;
 }
 
 // export function fetchStockData(parameters){

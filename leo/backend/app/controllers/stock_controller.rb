@@ -6,4 +6,8 @@ class StockController < ApplicationController
   def csv
     send_data Stock.to_csv(params)
   end
+
+  def load_data
+    render json: Stock.load_data
+  end
 end

@@ -31,13 +31,6 @@ GEM
     arel (3.0.3)
     builder (3.0.4)
     chronic (0.10.2)
-    coffee-rails (3.2.2)
-      coffee-script (>= 2.2.0)
-      railties (~> 3.2.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     debase (0.2.1)
       debase-ruby_core_source
@@ -47,6 +40,13 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.7.0)
+    factory_bot (4.11.1)
+      activesupport (>= 3.0.0)
+    factory_bot_rails (4.11.1)
+      factory_bot (~> 4.11.1)
+      railties (>= 3.0.0)
+    faker (1.9.6)
+      i18n (>= 0.7)
     ffi (1.11.1)
     hike (1.2.3)
     http-cookie (1.0.3)
@@ -156,8 +156,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  coffee-rails (~> 3.2.1)
   debase (= 0.2.1)
+  factory_bot_rails
+  faker
   jquery-rails
   nokogiri
   rack-cors

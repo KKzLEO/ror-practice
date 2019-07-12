@@ -1,6 +1,7 @@
 Hello::Application.routes.draw do
   get "stock/query" => "stock#query"
   get "stock/csv" => "stock#csv"
+  get "stock/load_data" => "stock#load_data"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
