@@ -13,7 +13,7 @@ class Stock < ActiveRecord::Base
                   :status
   require 'csv'
 
-  extend CrawlHelper
+  extend Crawler
 
   DEFAULT_QUERY_COUNT = 50
 
@@ -23,11 +23,13 @@ class Stock < ActiveRecord::Base
   end
 
   def self.filter(arg)
+    load_data if is_stock_data_empty_today
+
     count = arg[:count] || DEFAULT_QUERY_COUNT
     date = arg[:date] || Date.today.to_s
     sort_method = arg[:sortMethod] || 'asc'
     sort_field = arg[:sortField] || 'company_id'
-    operator = arg[:companyId].nil? ? 'OR' : 'AND'
+    operator = arg[:companyId].blank? ? 'OR' : 'AND'
 
     Stock.where("DATE(created_at) = ? #{operator} company_id = ?", Date.parse(date), arg[:companyId])
          .order("#{sort_field} #{sort_method}")
@@ -47,6 +49,13 @@ class Stock < ActiveRecord::Base
 
   def self.delete_duplicated_stock_data
     Stock.where('DATE(created_at) = ?', Date.today.to_s).delete_all
+  end
+
+  def self.is_stock_data_empty_today
+    is_empty = Stock.where('DATE(created_at) = ?', Date.today.to_s).empty?
+    error_message = 'the crontab of fetching stock data is failed. The stock data is empty.'
+    logger.debug error_message if is_empty
+    is_empty
   end
 
   def self.crawl_stock_data

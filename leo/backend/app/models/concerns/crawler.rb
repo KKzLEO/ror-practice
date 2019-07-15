@@ -1,4 +1,4 @@
-module CrawlHelper
+module Crawler
   require 'open-uri'
   require 'nokogiri'
 
