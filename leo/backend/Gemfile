@@ -7,6 +7,11 @@ gem 'rails', '3.2.22.1'
 
 gem 'sqlite3', '< 1.4.0'
 
+gem 'nokogiri'
+gem 'whenever', require: false
+gem 'test-unit', '~> 3.0'
+gem 'rack-cors'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'ruby-debug-ide', '0.6.0'
@@ -22,13 +27,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
 
-gem 'rest-client'
-gem 'nokogiri'
-gem 'whenever', require: false
-gem 'test-unit', '~> 3.0'
-gem 'rack-cors'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
