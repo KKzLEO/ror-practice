@@ -15,22 +15,23 @@ class Stock < ActiveRecord::Base
 
   extend CrawlHelper
 
+  DEFAULT_QUERY_COUNT = 50
+
   def self.load_data
     delete_duplicated_stock_data
     Stock.create(crawl_stock_data)
   end
 
   def self.filter(arg)
-    arg[:count] ||= Stock.count
-    arg[:date] ||= Date.today.to_s
-    arg[:sortMethod] ||= 'asc'
-    arg[:sortField] ||= 'company_id'
-    condition = 'DATE(created_at) = ? AND company_id = ?' unless arg[:companyId].nil?
-    condition = 'DATE(created_at) = ? OR company_id = ?' if arg[:companyId].nil?
+    count = arg[:count] || DEFAULT_QUERY_COUNT
+    date = arg[:date] || Date.today.to_s
+    sort_method = arg[:sortMethod] || 'asc'
+    sort_field = arg[:sortField] || 'company_id'
+    operator = arg[:companyId].nil? ? 'OR' : 'AND'
 
-    Stock.where(condition, Date.parse(arg[:date]), arg[:companyId])
-         .order("#{arg[:sortField]} #{arg[:sortMethod]}")
-         .first(arg[:count].to_i)
+    Stock.where("DATE(created_at) = ? #{operator} company_id = ?", Date.parse(date), arg[:companyId])
+         .order("#{sort_field} #{sort_method}")
+         .first(count.to_i)
   end
 
   def self.to_csv(arg)
