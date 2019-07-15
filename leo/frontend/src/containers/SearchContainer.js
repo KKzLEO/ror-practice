@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import {
     fetchStockData,
-    exportStockData
+    exportStockData,
+    setQueryParameters
 } from '../actions/stockActions';
 import Search from '../components/Search/Search'
 
@@ -18,6 +19,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         exportStockData:(parameters)=>{
             dispatch(exportStockData(parameters));
+        },
+        setQueryParameters:(parameters)=>{
+            return Promise.resolve(dispatch(setQueryParameters(parameters)));
         }
     }
 };

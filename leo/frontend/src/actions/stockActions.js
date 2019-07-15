@@ -7,7 +7,7 @@ import {
     EXPORT_STOCK_DATA_REQUEST,
     EXPORT_STOCK_DATA_SUCCESS,
     EXPORT_STOCK_DATA_FAILURE,
-    SET_QUERY_PARAMETERS_REQUEST
+    SET_QUERY_PARAMETERS
 } from '../constants/actionTypes';
 
 export const fetchStockDataRequest = createAction(FETCH_STOCK_DATA_REQUEST);
@@ -17,25 +17,19 @@ export const exportStockDataRequest = createAction(EXPORT_STOCK_DATA_REQUEST);
 export const exportStockDataSuccess = createAction(EXPORT_STOCK_DATA_SUCCESS);
 export const exportStockDataFailure = createAction(EXPORT_STOCK_DATA_FAILURE);
 
-export const setQueryParametersRequest = createAction(SET_QUERY_PARAMETERS_REQUEST);
-
-export function setQueryParameters(parameters){
-    return (dispatch) => {
-        Promise(dispatch(setQueryParametersRequest(parameters)));
-    }
-}
+export const setQueryParameters = createAction(SET_QUERY_PARAMETERS);
 
 export function fetchStockData(parameters){
     return async (dispatch) => {
         dispatch(fetchStockDataRequest());
         try {
             let url = `http://localhost:3000/stock/query?`;
-            url = addParametersToUrl(url, parameters);
+            url = addParametersToUrl(url, parameters.toJS());
             const res = await fetch(url, {
                 method: 'get'
             });
             const data = await res.json();
-            dispatch(fetchStockDataSuccess({data : data, parameters: parameters}));
+            dispatch(fetchStockDataSuccess({data : data}));
         }
         catch (error) {
             dispatch(fetchStockDataFailure());

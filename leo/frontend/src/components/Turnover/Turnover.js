@@ -26,17 +26,17 @@ export default class Turnover extends Component {
     }
 
     sortByField(sortField){
-        let parameters = Object.assign({},this.props.parameters);
-
-        parameters.sortField = sortField;
-
-        if(parameters.sortField === parameters.lastSortField){
-            parameters.sortMethod = parameters.sortMethod === 'asc' ? 'desc' : 'asc';
-        }else{
-            parameters.sortMethod = 'asc';
+        let parameters = {
+            sortField: sortField,
+            lastSortField: this.props.parameters.get('sortField'),
+            sortMethod: this.props.parameters.get('sortField') !== sortField ? 'asc' :
+                        this.props.parameters.get('sortMethod') === 'asc' ? 'desc' : 'asc'
         }
-        parameters.lastSortField = sortField;
-        this.props.fetchStockData(parameters);
+
+        this.props.setQueryParameters(parameters)
+            .then(()=>{
+                this.props.fetchStockData(this.props.parameters);
+            });
     }
 
     render() {
@@ -63,7 +63,7 @@ export default class Turnover extends Component {
                                 columnInfo.map((column)=>(
                                     <TableCell key={column.fieldCode} onClick={()=>this.sortByField(column.fieldCode)} align="right" className={styles.table_head}>{column.fieldName}
                                         {
-                                            column.fieldCode === parameters.sortField ? <Icon className={styles.icon_order}>{parameters.sortMethod === 'asc' ? 'keyboard_arrow_down' : "keyboard_arrow_up"}</Icon> : false
+                                            column.fieldCode === parameters.get('sortField') ? <Icon className={styles.icon_order}>{parameters.get('sortMethod') === 'asc' ? 'keyboard_arrow_down' : "keyboard_arrow_up"}</Icon> : false
                                         }
                                     </TableCell>
                                 ))

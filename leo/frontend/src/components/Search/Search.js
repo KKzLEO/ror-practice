@@ -28,17 +28,17 @@ export default class Search extends Component {
     }
 
     handleSearch(){
-        let parameters = Object.assign({},this.props.parameters);
-        parameters.companyId = this.state.parameters.companyId;
-        parameters.date = this.state.parameters.date;
-        this.props.fetchStockData(parameters);
+        this.props.setQueryParameters(this.state.parameters)
+            .then(()=>{ 
+                this.props.fetchStockData(this.props.parameters) 
+            });
     }
 
     exportStockData(){
-        let parameters = Object.assign({},this.props.parameters);
-        parameters.companyId = this.state.parameters.companyId;
-        parameters.date = this.state.parameters.date;
-        this.props.exportStockData(parameters);
+        this.props.setQueryParameters(this.state.parameters)
+            .then(()=>{
+                this.props.exportStockData(this.props.parameters)
+            });
     }
 
     render() {

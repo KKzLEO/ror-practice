@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import {
-    fetchStockData
+    fetchStockData,
+    setQueryParameters
 } from '../actions/stockActions';
 import Turnover from '../components/Turnover/Turnover'
 
@@ -16,6 +17,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchStockData:(parameters)=>{
             dispatch(fetchStockData(parameters));
+        },
+        setQueryParameters:(parameters)=>{
+            return Promise.resolve(dispatch(setQueryParameters(parameters)));
         }
     }
 };
