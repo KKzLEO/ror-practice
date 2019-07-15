@@ -61,9 +61,9 @@ class Stock < ActiveRecord::Base
         opening_price: row[3].text.strip.to_f,
         max_price: row[4].text.strip.to_f,
         min_price: row[5].text.strip.to_f,
-        yesterday_closing_price: row[6].text.strip,
+        yesterday_closing_price: row[6].text.strip.to_f,
         today_closing_price: row[7].text.strip.to_f,
-        volume: row[8].css('font')[0].text.strip,
+        volume: row[8].css('font')[0].text.strip.gsub(',', '').to_f,
         status: row[10].text.strip == '▲' ? 'up' : row[10].text.strip == '▼' ? 'down' : 'none',
         up_down_value: row[11].css('font').text.strip.to_f,
         percentage_up_down_value: row[12].text.strip

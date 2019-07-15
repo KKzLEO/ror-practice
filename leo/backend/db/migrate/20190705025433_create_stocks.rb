@@ -9,7 +9,7 @@ class CreateStocks < ActiveRecord::Migration
       t.float :min_price
       t.float :yesterday_closing_price
       t.float :today_closing_price
-      t.string :volume
+      t.float :volume
       t.float :up_down_value
       t.string :percentage_up_down_value
       t.string :status
