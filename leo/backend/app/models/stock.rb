@@ -67,7 +67,7 @@ class Stock < ActiveRecord::Base
         volume: row[8].css('font')[0].text.strip.gsub(',', '').to_f,
         status: row[10].text.strip == '▲' ? 'up' : row[10].text.strip == '▼' ? 'down' : 'none',
         up_down_value: row[11].css('font').text.strip.to_f,
-        percentage_up_down_value: row[12].text.strip
+        percentage_up_down_value: row[12].text.gsub(/[[:space:]]/, '')
       }
       stock_data_list << stock_data
     end
