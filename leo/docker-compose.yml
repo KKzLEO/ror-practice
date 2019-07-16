@@ -1,0 +1,13 @@
+version: '2.1'
+
+services:
+  backend:
+    image: backend
+    build: ./backend
+    ports:
+      - 3000:3000
+  frontend:
+    image: frontend:v1
+    build: ./frontend
+    ports:
+      - 3100:3100
