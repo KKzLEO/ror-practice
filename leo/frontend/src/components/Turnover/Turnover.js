@@ -11,16 +11,6 @@ import Loader from '../Loader/Loader';
 
 export default class Turnover extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            parameters:{
-                sortField: "company_id",
-                sortMethod: "asc"
-            }
-        }
-    }
-
     componentDidMount(){
         this.props.fetchStockData(this.props.parameters);
     }
@@ -40,19 +30,19 @@ export default class Turnover extends Component {
     }
 
     render() {
-        const stockData = this.props.stockData;
-        const parameters = this.props.parameters;
-        const columnInfo = [];
-        columnInfo.push({fieldCode:"company_id", fieldName:"代號"});
-        columnInfo.push({fieldCode:"company_name", fieldName:"名稱"});
-        columnInfo.push({fieldCode:"opening_price", fieldName:"開盤價"});
-        columnInfo.push({fieldCode:"max_price", fieldName:"最高價"});
-        columnInfo.push({fieldCode:"min_price", fieldName:"最低價"});
-        columnInfo.push({fieldCode:"yesterday_closing_price", fieldName:"昨收盤"});
-        columnInfo.push({fieldCode:"today_closing_price", fieldName:"今收盤"});
-        columnInfo.push({fieldCode:"volume", fieldName:"成交量"});
-        columnInfo.push({fieldCode:"up_down_value", fieldName:"漲跌"});
-        columnInfo.push({fieldCode:"percentage_up_down_value", fieldName:"漲跌幅"});
+        const { stockData, parameters } = this.props;
+        const columnInfo = [
+            {fieldCode:"company_id", fieldName:"代號"},
+            {fieldCode:"company_name", fieldName:"名稱"},
+            {fieldCode:"opening_price", fieldName:"開盤價"},
+            {fieldCode:"max_price", fieldName:"最高價"},
+            {fieldCode:"min_price", fieldName:"最低價"},
+            {fieldCode:"yesterday_closing_price", fieldName:"昨收盤"},
+            {fieldCode:"today_closing_price", fieldName:"今收盤"},
+            {fieldCode:"volume", fieldName:"成交量"},
+            {fieldCode:"up_down_value", fieldName:"漲跌"},
+            {fieldCode:"percentage_up_down_value", fieldName:"漲跌幅"}
+        ];
         return (
             <Paper>
                 <Loader isShow={this.props.isLoading} />
@@ -63,12 +53,12 @@ export default class Turnover extends Component {
                                 columnInfo.map((column)=>(
                                     <TableCell key={column.fieldCode} onClick={()=>this.sortByField(column.fieldCode)} align="right" className={styles.table_head}>{column.fieldName}
                                         {
-                                            column.fieldCode === parameters.get('sortField') ? <Icon className={styles.icon_order}>{parameters.get('sortMethod') === 'asc' ? 'keyboard_arrow_down' : "keyboard_arrow_up"}</Icon> : false
+                                            column.fieldCode === parameters.get('sortField') ? <Icon className={styles.icon_order}>{parameters.get('sortMethod') === 'asc' ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}</Icon> : false
                                         }
                                     </TableCell>
                                 ))
                             }
-                            </TableRow>
+                        </TableRow>
                     </TableHead>
                     <TableBody>
                     {stockData.map(stock => (
