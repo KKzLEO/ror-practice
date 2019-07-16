@@ -74,7 +74,7 @@ export default class Turnover extends Component {
                             <TableCell align="right">{stock.min_price}</TableCell>
                             <TableCell align="right">{stock.yesterday_closing_price}</TableCell>
                             <TableCell align="right">{stock.today_closing_price}</TableCell>
-                            <TableCell align="right">{stock.volume}</TableCell>
+                            <TableCell align="right">{stock.volume.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}</TableCell>
                             <TableCell align="right">
                                 {
                                     stock.status === 'up' ? <Icon className={styles.icon_up}>arrow_drop_up</Icon> : 
