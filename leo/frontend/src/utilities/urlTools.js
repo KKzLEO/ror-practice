@@ -1,4 +1,5 @@
 export function addParametersToUrl(url, parameters){
+    url += '?';
     Object.keys(parameters).reduce((accumulator, key) => {
         if(parameters[key] !== null 
             && parameters[key] !== undefined 

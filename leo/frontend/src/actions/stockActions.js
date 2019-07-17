@@ -9,6 +9,7 @@ import {
     EXPORT_STOCK_DATA_FAILURE,
     SET_QUERY_PARAMETERS
 } from '../constants/actionTypes';
+import * as apiUrls from '../constants/apiUrls';
 
 export const fetchStockDataRequest = createAction(FETCH_STOCK_DATA_REQUEST);
 export const fetchStockDataSuccess = createAction(FETCH_STOCK_DATA_SUCCESS);
@@ -23,7 +24,7 @@ export function fetchStockData(parameters){
     return async (dispatch) => {
         dispatch(fetchStockDataRequest());
         try {
-            let url = `http://localhost:3000/stock/query?`;
+            let url = apiUrls.API_QUERY_STOCK_DATA;
             url = addParametersToUrl(url, parameters.toJS());
             const res = await fetch(url, {
                 method: 'get'
@@ -40,7 +41,7 @@ export function fetchStockData(parameters){
 export function exportStockData(parameters){
     return async (dispatch) => {
         dispatch(exportStockDataRequest());
-        let url = `http://localhost:3000/stock/csv?`;
+        let url = apiUrls.API_EXPORT_STOCK_DATA;
         url = addParametersToUrl(url, parameters);
         try {
             const res = await fetch(url);
