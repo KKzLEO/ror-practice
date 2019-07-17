@@ -25,7 +25,8 @@ export function fetchStockData(parameters){
         dispatch(fetchStockDataRequest());
         try {
             let url = apiUrls.API_QUERY_STOCK_DATA;
-            url = addParametersToUrl(url, parameters.toJS());
+            url = addParametersToUrl(url, parameters);
+            
             const res = await fetch(url, {
                 method: 'get'
             });

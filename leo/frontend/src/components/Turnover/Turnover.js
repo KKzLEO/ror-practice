@@ -11,22 +11,15 @@ import Loader from '../Loader/Loader';
 
 export default class Turnover extends Component {
 
-    componentDidMount(){
-        this.props.fetchStockData(this.props.parameters);
-    }
-
     sortByField(sortField){
         let parameters = {
             sortField: sortField,
-            lastSortField: this.props.parameters.get('sortField'),
-            sortMethod: this.props.parameters.get('sortField') !== sortField ? 'asc' :
-                        this.props.parameters.get('sortMethod') === 'asc' ? 'desc' : 'asc'
+            lastSortField: this.props.parameters.sortField,
+            sortMethod: this.props.parameters.sortField !== sortField ? 'asc' :
+                        this.props.parameters.sortMethod === 'asc' ? 'desc' : 'asc'
         }
 
-        this.props.setQueryParameters(parameters)
-            .then(()=>{
-                this.props.fetchStockData(this.props.parameters);
-            });
+        this.props.searchStockData(parameters);
     }
 
     render() {
@@ -51,9 +44,9 @@ export default class Turnover extends Component {
                         <TableRow>
                             {
                                 columnInfo.map((column)=>(
-                                    <TableCell key={column.fieldCode} onClick={()=>this.sortByField(column.fieldCode)} align="right" className={styles.table_head}>{column.fieldName}
+                                    <TableCell id={column.fieldCode} key={column.fieldCode} onClick={()=>this.sortByField(column.fieldCode)} align="right" className={styles.table_head}>{column.fieldName}
                                         {
-                                            column.fieldCode === parameters.get('sortField') ? <Icon className={styles.icon_order}>{parameters.get('sortMethod') === 'asc' ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}</Icon> : false
+                                            column.fieldCode === parameters.sortField ? <Icon className={styles.icon_order}>{parameters.sortMethod === 'asc' ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}</Icon> : false
                                         }
                                     </TableCell>
                                 ))
@@ -74,7 +67,7 @@ export default class Turnover extends Component {
                             <TableCell align="right">{stock.min_price}</TableCell>
                             <TableCell align="right">{stock.yesterday_closing_price}</TableCell>
                             <TableCell align="right">{stock.today_closing_price}</TableCell>
-                            <TableCell align="right">{stock.volume.toLocaleString(navigator.language, { minimumFractionDigits: 0 })}</TableCell>
+                            <TableCell align="right">{stock.volume.toLocaleString(navigator.language, { minimumFractionDigits: 3 })}</TableCell>
                             <TableCell align="right">
                                 {
                                     stock.status === 'up' ? <Icon className={styles.icon_up}>arrow_drop_up</Icon> : 

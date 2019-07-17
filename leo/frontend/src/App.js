@@ -9,6 +9,7 @@ import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux';
 import TurnoverContainer from './containers/TurnoverContainer';
 import SearchContainer from './containers/SearchContainer';
+import MainContainer from './containers/MainContainer'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
@@ -23,10 +24,7 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <Header />
-        <Container maxWidth="md">
-          <SearchContainer />
-          <TurnoverContainer />
-        </Container>
+        <MainContainer />
         <Footer />
       </div>
     </Provider>

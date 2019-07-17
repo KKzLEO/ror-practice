@@ -28,17 +28,11 @@ export default class Search extends Component {
     }
 
     handleSearch(){
-        this.props.setQueryParameters(this.state.parameters)
-            .then(()=>{ 
-                this.props.fetchStockData(this.props.parameters) 
-            });
+        this.props.searchStockData(this.state.parameters);
     }
 
     exportStockData(){
-        this.props.setQueryParameters(this.state.parameters)
-            .then(()=>{
-                this.props.exportStockData(this.props.parameters)
-            });
+        this.props.exportStockData(this.state.parameters);
     }
 
     render() {
