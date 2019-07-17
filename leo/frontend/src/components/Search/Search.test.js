@@ -11,24 +11,24 @@ describe('test Search component', () => {
     
     beforeEach(() => {
         props = {
-            fetchStockData: jest.fn(),
-            setQueryParameters: jest.fn().mockResolvedValue(43),
+            searchStockData: jest.fn(),
             exportStockData: jest.fn(),
+            isLoading: false,
             parameters: Immutable.Map()
         }
         wrapper = shallow(<Search {...props} />)
     })
 
-    it('test function exportStockData', () => {
-        wrapper.instance().exportStockData();
-        expect(props.setQueryParameters).toBeCalled();
-        expect(props.setQueryParameters).toBeCalledTimes(1);
-    });
+    // it('test function exportStockData', () => {
+    //     wrapper.instance().exportStockData();
+    //     expect(props.setQueryParameters).toBeCalled();
+    //     expect(props.setQueryParameters).toBeCalledTimes(1);
+    // });
 
     it('test exporting file btn work', () => {
         wrapper.find(`.${styles.btn_toolbar}`).simulate('click');
-        expect(props.setQueryParameters).toBeCalled();
-        expect(props.setQueryParameters).toBeCalledTimes(1);
+        expect(props.exportStockData).toBeCalled();
+        expect(props.exportStockData).toBeCalledTimes(1);
     })
 
     it('test enter id will change state ', () => {

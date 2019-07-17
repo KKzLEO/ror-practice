@@ -1,25 +1,35 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Turnover from './Turnover'
-import styles from './Turnover.module.scss';
-import Immutable from 'immutable';
-
-it('should render without crashing', () => {
-    let props = {
-        fetchStockData: jest.fn(),
-        setQueryParameters: jest.fn().mockResolvedValue(43),
-        stockData: [],
-        isLoading: false,
-        parameters: Immutable.Map()
-    }
-    const wrapper = shallow(<Turnover {...props} />)
-    expect(props.fetchStockData).toBeCalled();
-    expect(props.fetchStockData).toBeCalledTimes(1);
-    expect(wrapper.instance().sortByField()).toBe(undefined);
-});
-
-// it('check ', () => {
-    
-// })
 
 
+describe('test Turnover component', () => {
+    let wrapper;
+    let props;
+
+    beforeEach(() => {
+        props = {
+            searchStockData: jest.fn(),
+            stockData: [],
+            isLoading: false,
+            parameters: {}
+        }
+        wrapper = shallow(<Turnover {...props} />)
+    })
+
+    it('click event', () => {
+        wrapper.find('#company_id').simulate('click');
+        wrapper.find('#company_name').simulate('click');
+        wrapper.find('#opening_price').simulate('click');
+        wrapper.find('#max_price').simulate('click');
+        wrapper.find('#min_price').simulate('click');
+        wrapper.find('#yesterday_closing_price').simulate('click');
+        wrapper.find('#today_closing_price').simulate('click');
+        wrapper.find('#volume').simulate('click');
+        wrapper.find('#up_down_value').simulate('click');
+        wrapper.find('#percentage_up_down_value').simulate('click');
+        expect(props.searchStockData).toBeCalledTimes(10);
+    })
+
+
+})

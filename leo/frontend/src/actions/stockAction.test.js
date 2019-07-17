@@ -25,7 +25,7 @@ describe('async actions', () => {
         ]
         const store = mockStore({ stockData: [],parameters:{} })
 
-        return store.dispatch(actions.fetchStockData(Immutable.Map())).then(() => {
+        return store.dispatch(actions.fetchStockData({})).then(() => {
             // return of async actions
             expect(store.getActions()).toEqual(expectedActions)
         })
@@ -42,7 +42,7 @@ describe('async actions', () => {
         ]
         const store = mockStore({ stockData: [],parameters:{} })
 
-        return store.dispatch(actions.fetchStockData({})).then(() => {
+        return store.dispatch(actions.fetchStockData()).then(() => {
             // return of async actions
             expect(store.getActions()).toEqual(expectedActions)
         })
