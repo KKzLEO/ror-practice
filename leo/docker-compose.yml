@@ -2,12 +2,12 @@ version: '2.1'
 
 services:
   backend:
-    image: backend
+    image: kkleo/backend:v3
     build: ./backend
     ports:
       - 3000:3000
   frontend:
-    image: frontend:v1
+    image: kkleo/frontend:v1
     build: ./frontend
     ports:
       - 3100:3100
