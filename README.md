@@ -1,8 +1,7 @@
 # ror-practice
 Ruby on Rails Practice Repo
 
-### Prerequisites
-
+## Prerequisites
 - ruby 2.3.7
 - rails 3.2.22.1
 - rubocop (ruby lint)
@@ -14,21 +13,21 @@ Ruby on Rails Practice Repo
 - enzyme
 - docker
 
-### Getting Started
+## Getting Started
 To run the application (install docker first) on development
 ```
 docker-compose build && docker-compose up -d
 ```
 Then open your browser on localhost:3000
 
-### Running the test
+## Running the test
 
-#### Frontend
+### Frontend
 ```
 cd frontend
 npm test
 ```
-#### Backend
+### Backend
 ```
 cd backend
 rspec
