@@ -18,7 +18,7 @@ To run the application (install docker first) on development
 ```
 docker-compose build && docker-compose up -d
 ```
-Then open your browser on localhost:3000
+Then open your browser on localhost:3100
 
 ## Running the test
 
