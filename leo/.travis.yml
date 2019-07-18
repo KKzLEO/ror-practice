@@ -6,8 +6,11 @@ addons:
   firefox: "47.0.1"
 
 install:
+  - cd backend
   - bundle install
   - nvm install stable && nvm alias default stable
+  - cd ..
+  - cd frontend
   - npm install npm@latest -g
   - npm --version
   - npm install
@@ -19,5 +22,8 @@ before_script:
   - sleep 3 # give xvfb some https://docs.travis-ci.com/user/gui-and-headless-browsers/#Using-xvfb-to-Run-Tests-That-Require-a-GUItime to start
 
 script:
+  - cd backend
   - bundle exec rake spec
+  - cd ..
+  - cd frontend
   - npm run test
