@@ -45,6 +45,7 @@ export default class Main extends Component {
         let searchProps = {
             parameters: this.state.parameters,
             searchStockData: (parameters)=>this.searchStockData(parameters),
+            exportStockData: (parameters)=>this.exportStockData(parameters),
             isLoading
         }
         return (
